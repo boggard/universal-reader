@@ -92,7 +92,7 @@ public class XLSXReader {
         @Override
         public void endRow(int rowNum) {
             if (isContentShouldBeHandled()) {
-                readRecord(contentsHandler, records::add, errorRecords::add);
+                readRecord(contentsHandler);
             }
         }
 

@@ -5,8 +5,6 @@ import lombok.experimental.UtilityClass;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
 
 import static com.github.universalreader.util.ReaderUtil.inputStreamToBufferedReader;
 import static com.github.universalreader.util.ReaderUtil.readRecord;
@@ -19,18 +17,15 @@ public class CSVReader {
             throws IOException {
         try (InputStream inputStream = inputStreamSource.getInputStream();
              BufferedReader reader = inputStreamToBufferedReader(inputStream)) {
-            List<T> records = new LinkedList<>();
-            List<E> errorRecords = new LinkedList<>();
 
             reader.lines().skip(configuration.getStartLineIndex()).forEach(line -> {
                 String[] lineRecords = line.split(configuration.getRecordsSeparator());
                 for (String lineRecord : lineRecords) {
-                    readRecord(lineRecord, contentsHandler, configuration.getFieldsSeparator(),
-                            records::add, errorRecords::add);
+                    readRecord(lineRecord, contentsHandler, configuration.getFieldsSeparator());
                 }
             });
 
-            return new ReaderResult<>(records, errorRecords);
+            return new ReaderResult<>(contentsHandler.getRecords(), contentsHandler.getErrorRecords());
         }
     }
 }

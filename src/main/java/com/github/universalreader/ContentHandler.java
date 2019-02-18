@@ -1,6 +1,6 @@
 package com.github.universalreader;
 
-import java.util.Optional;
+import java.util.Collection;
 
 public interface ContentHandler<T, E> {
 
@@ -8,7 +8,9 @@ public interface ContentHandler<T, E> {
 
     void startField(int index, String field);
 
-    Optional<T> endRecord();
+    void endRecord();
 
-    Optional<E> getErrorRecord();
+    Collection<T> getRecords();
+
+    Collection<E> getErrorRecords();
 }

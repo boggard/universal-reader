@@ -8,8 +8,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedList;
-import java.util.List;
 
 import static com.github.universalreader.util.ReaderUtil.readRecord;
 
@@ -21,8 +19,6 @@ public class XLSReader {
             throws IOException {
         try (InputStream inputStream = inputStreamSource.getInputStream();
              Workbook workbook = WorkbookFactory.create(inputStream)) {
-            List<T> records = new LinkedList<>();
-            List<E> errorRecords = new LinkedList<>();
 
             workbook.sheetIterator().forEachRemaining(sheet -> {
                 for (int i = configuration.getStartLineIndex(); i < sheet.getLastRowNum() + 1; i++) {
@@ -36,12 +32,12 @@ public class XLSReader {
                             contentsHandler.startField(cell.getColumnIndex(), cell.getStringCellValue());
                         });
 
-                        readRecord(contentsHandler, records::add, errorRecords::add);
+                        readRecord(contentsHandler);
                     }
                 }
             });
 
-            return new ReaderResult<>(records, errorRecords);
+            return new ReaderResult<>(contentsHandler.getRecords(), contentsHandler.getErrorRecords());
         }
     }
 }
