@@ -22,6 +22,8 @@ public class TXTReader {
             reader.lines().skip(configuration.getStartLineIndex())
                     .forEach(line -> readRecord(line, contentsHandler, configuration.getFieldsSeparator()));
 
+            contentsHandler.endFile();
+
             return contentsHandler.getResult();
         }
     }

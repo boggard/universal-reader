@@ -8,5 +8,9 @@ public interface ContentHandler<R> {
 
     void endRecord();
 
+    default void endFile() {
+        //by default do nothing
+    }
+
     R getResult();
 }

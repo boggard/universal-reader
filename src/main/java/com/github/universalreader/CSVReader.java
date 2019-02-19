@@ -26,6 +26,8 @@ public class CSVReader {
                 }
             });
 
+            contentsHandler.endFile();
+
             return contentsHandler.getResult();
         }
     }

@@ -42,6 +42,8 @@ public class XLSXReader {
             Iterator<InputStream> sheetsData = reader.getSheetsData();
             sheetsData.forEachRemaining(sheet -> processSheet(parser, sheet));
 
+            contentsHandler.endFile();
+
             return contentsHandler.getResult();
         }
     }

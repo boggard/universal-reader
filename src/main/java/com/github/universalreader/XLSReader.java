@@ -46,6 +46,8 @@ public class XLSReader {
                 }
             });
 
+            contentsHandler.endFile();
+
             return contentsHandler.getResult();
         }
     }
