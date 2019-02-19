@@ -14,12 +14,28 @@ public class ReaderConfiguration {
     private int startLineIndex;
 
     private ReaderConfiguration() {
-        this.recordsSeparator = DEFAULT_RECORDS_SEPARATOR;
-        this.fieldsSeparator = DEFAULT_FIELDS_SEPARATOR;
-        this.startLineIndex = DEFAULT_START_INDEX;
+        this(DEFAULT_START_INDEX);
+    }
+
+    private ReaderConfiguration(int startLineIndex) {
+        this(DEFAULT_RECORDS_SEPARATOR, DEFAULT_FIELDS_SEPARATOR, startLineIndex);
+    }
+
+    private ReaderConfiguration(String recordsSeparator, String fieldsSeparator, int startLineIndex) {
+        this.recordsSeparator = recordsSeparator;
+        this.fieldsSeparator = fieldsSeparator;
+        this.startLineIndex = startLineIndex;
     }
 
     public static ReaderConfiguration defaultReaderConfiguration() {
         return new ReaderConfiguration();
+    }
+
+    public static ReaderConfiguration withHeaderDefaultConfiguration() {
+        return new ReaderConfiguration(1);
+    }
+
+    public static ReaderConfiguration customConfiguration(String recordsSeparator, String fieldsSeparator, int startLineIndex) {
+        return new ReaderConfiguration(recordsSeparator, fieldsSeparator, startLineIndex);
     }
 }
