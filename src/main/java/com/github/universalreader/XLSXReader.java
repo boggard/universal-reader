@@ -1,5 +1,7 @@
 package com.github.universalreader;
 
+import com.github.universalreader.contenthandler.ContentHandler;
+import com.github.universalreader.readerresult.ReaderResult;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
@@ -30,8 +32,8 @@ import static com.github.universalreader.util.ReaderUtil.readRecord;
 @UtilityClass
 public class XLSXReader {
 
-    public static <T, E> ReaderResult<T, E> readRecords(FileSource inputStreamSource, ContentHandler<T, E> contentsHandler,
-                                                  ReaderConfiguration configuration)
+    public static <T, E> ReaderResult<E> readRecords(FileSource inputStreamSource, ContentHandler<E> contentsHandler,
+                                                        ReaderConfiguration configuration)
             throws IOException, OpenXML4JException, ParserConfigurationException, SAXException {
         try (InputStream inputStream = inputStreamSource.getInputStream();
              OPCPackage pkg = OPCPackage.open(inputStream)) {
@@ -44,7 +46,7 @@ public class XLSXReader {
             Iterator<InputStream> sheetsData = reader.getSheetsData();
             sheetsData.forEachRemaining(sheet -> processSheet(parser, sheet));
 
-            return new ReaderResult<>(sheetContentsHandler.getRecords(), sheetContentsHandler.getErrorRecords());
+            return contentsHandler.getResult();
         }
     }
 
@@ -70,7 +72,7 @@ public class XLSXReader {
     private static class SheetContentsHandlerImpl<T, E> implements SheetContentsHandler {
 
         private static final Pattern CELL_REFERENCE_PATTERN = Pattern.compile("[A-Z]+");
-        private final ContentHandler<T, E> contentsHandler;
+        private final ContentHandler<E> contentsHandler;
         private final ReaderConfiguration configuration;
 
         private int currentRowNum = -1;

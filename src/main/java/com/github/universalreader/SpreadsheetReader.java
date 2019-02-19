@@ -1,5 +1,7 @@
 package com.github.universalreader;
 
+import com.github.universalreader.contenthandler.ContentHandler;
+import com.github.universalreader.readerresult.ReaderResult;
 import com.github.universalreader.util.LocalFileSource;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.openxml4j.exceptions.OLE2NotOfficeXmlFileException;
@@ -16,15 +18,15 @@ import java.nio.file.Files;
 @UtilityClass
 public class SpreadsheetReader {
 
-    public static <T, E> ReaderResult<T, E> readRecords(FileSource fileSource, ContentHandler<T, E> contentsHandler,
-                                                        ReaderConfiguration configuration)
+    public static <E> ReaderResult<E> readRecords(FileSource fileSource, ContentHandler<E> contentsHandler,
+                                                  ReaderConfiguration configuration)
             throws IOException, ParserConfigurationException, SAXException, OpenXML4JException {
         File tempFile = File.createTempFile("spreadsheet-temp", null);
         writeToFile(fileSource, tempFile);
 
         FileSource tempFileSource = new LocalFileSource(tempFile);
 
-        ReaderResult<T, E> result;
+        ReaderResult<E> result;
 
         try {
             result = XLSXReader.readRecords(tempFileSource, contentsHandler, configuration);

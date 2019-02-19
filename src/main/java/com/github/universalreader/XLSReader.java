@@ -1,5 +1,7 @@
 package com.github.universalreader;
 
+import com.github.universalreader.contenthandler.ContentHandler;
+import com.github.universalreader.readerresult.ReaderResult;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.ss.usermodel.*;
 
@@ -13,7 +15,7 @@ public class XLSReader {
 
     private static final DataFormatter DATA_FORMATTER = new DataFormatter();
 
-    public static <T, E> ReaderResult<T, E> readRecords(FileSource inputStreamSource, ContentHandler<T, E> contentsHandler,
+    public static <T, E> ReaderResult<E> readRecords(FileSource inputStreamSource, ContentHandler<E> contentsHandler,
                                                         ReaderConfiguration configuration)
             throws IOException {
         try (InputStream inputStream = inputStreamSource.getInputStream();
@@ -45,7 +47,7 @@ public class XLSReader {
                 }
             });
 
-            return new ReaderResult<>(contentsHandler.getRecords(), contentsHandler.getErrorRecords());
+            return contentsHandler.getResult();
         }
     }
 }

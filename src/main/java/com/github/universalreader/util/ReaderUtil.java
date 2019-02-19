@@ -1,6 +1,6 @@
 package com.github.universalreader.util;
 
-import com.github.universalreader.ContentHandler;
+import com.github.universalreader.contenthandler.ContentHandler;
 import lombok.experimental.UtilityClass;
 import org.mozilla.universalchardet.UnicodeBOMInputStream;
 
@@ -13,7 +13,7 @@ import static com.github.universalreader.util.CharsetUtil.detectCharset;
 @UtilityClass
 public class ReaderUtil {
 
-    public static <T, E> void readRecord(String record, ContentHandler<T, E> contentsHandler, String recordsSeparator) {
+    public static <T, E> void readRecord(String record, ContentHandler<E> contentsHandler, String recordsSeparator) {
         contentsHandler.startRecord();
 
         String[] fields = record.split(recordsSeparator);
@@ -24,7 +24,7 @@ public class ReaderUtil {
         readRecord(contentsHandler);
     }
 
-    public static <T, E> void readRecord(ContentHandler<T, E> contentsHandler) {
+    public static <T, E> void readRecord(ContentHandler<E> contentsHandler) {
         contentsHandler.endRecord();
     }
 

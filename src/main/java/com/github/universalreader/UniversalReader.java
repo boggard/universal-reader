@@ -1,5 +1,11 @@
 package com.github.universalreader;
 
+import com.github.universalreader.contenthandler.ContentCollector;
+import com.github.universalreader.contenthandler.ContentHandler;
+import com.github.universalreader.contenthandler.ContentProcessor;
+import com.github.universalreader.readerresult.CollectResult;
+import com.github.universalreader.readerresult.ProcessResult;
+import com.github.universalreader.readerresult.ReaderResult;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
@@ -12,16 +18,28 @@ import java.io.IOException;
 @UtilityClass
 public class UniversalReader {
 
-    public static <T, E> ReaderResult<T, E> readRecords(FileSource fileSource, ContentHandler<T, E> contentsHandler,
-                                          ReaderConfiguration configuration)
+    public static <T, E> CollectResult<T, E> collectRecords(FileSource fileSource, ContentCollector<T, E> contentsHandler,
+                                                            ReaderConfiguration configuration)
             throws IOException, OpenXML4JException, SAXException, ParserConfigurationException {
+        return (CollectResult<T, E>) readRecords(fileSource, contentsHandler, configuration);
+    }
+
+    public static <T, E> ProcessResult<E> processRecords(FileSource fileSource, ContentProcessor<E> contentsHandler,
+                                                         ReaderConfiguration configuration)
+            throws IOException, OpenXML4JException, SAXException, ParserConfigurationException {
+        return (ProcessResult<E>) readRecords(fileSource, contentsHandler, configuration);
+    }
+
+    private <E> ReaderResult<E> readRecords(FileSource fileSource, ContentHandler<E> contentsHandler,
+                                            ReaderConfiguration configuration) throws IOException,
+            OpenXML4JException, SAXException, ParserConfigurationException {
         log.debug("Parsing file: " + fileSource.getFileName());
 
         String fileExt = getFileExtension(fileSource.getFileName());
 
         log.debug("File extension  " + fileExt);
 
-        ReaderResult<T, E> result;
+        ReaderResult<E> result;
         switch (fileExt) {
             case "txt":
                 result = TXTReader.readRecords(fileSource, contentsHandler, configuration);

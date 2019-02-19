@@ -1,5 +1,7 @@
 package com.github.universalreader;
 
+import com.github.universalreader.contenthandler.ContentHandler;
+import com.github.universalreader.readerresult.ReaderResult;
 import lombok.experimental.UtilityClass;
 
 import java.io.BufferedReader;
@@ -12,7 +14,7 @@ import static com.github.universalreader.util.ReaderUtil.readRecord;
 @UtilityClass
 public class CSVReader {
 
-    public static <T, E> ReaderResult<T, E> readRecords(FileSource inputStreamSource, ContentHandler<T, E> contentsHandler,
+    public static <E> ReaderResult<E> readRecords(FileSource inputStreamSource, ContentHandler<E> contentsHandler,
                                                   ReaderConfiguration configuration)
             throws IOException {
         try (InputStream inputStream = inputStreamSource.getInputStream();
@@ -25,7 +27,7 @@ public class CSVReader {
                 }
             });
 
-            return new ReaderResult<>(contentsHandler.getRecords(), contentsHandler.getErrorRecords());
+            return contentsHandler.getResult();
         }
     }
 }
