@@ -1,10 +1,6 @@
 package com.github.universalreader.contenthandler;
 
-import com.github.universalreader.readerresult.ReaderResult;
-
-import java.util.Collection;
-
-public interface ContentHandler<E> {
+public interface ContentHandler<R> {
 
     void startRecord();
 
@@ -12,7 +8,5 @@ public interface ContentHandler<E> {
 
     void endRecord();
 
-    Collection<E> getErrorRecords();
-
-    ReaderResult<E> getResult();
+    R getResult();
 }

@@ -1,8 +1,6 @@
 package com.github.universalreader;
 
 import com.github.universalreader.contenthandler.ContentHandler;
-import com.github.universalreader.readerresult.ReaderResult;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.ooxml.util.SAXHelper;
@@ -22,8 +20,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,14 +28,14 @@ import static com.github.universalreader.util.ReaderUtil.readRecord;
 @UtilityClass
 public class XLSXReader {
 
-    public static <T, E> ReaderResult<E> readRecords(FileSource inputStreamSource, ContentHandler<E> contentsHandler,
+    public static <R> R readRecords(FileSource inputStreamSource, ContentHandler<R> contentsHandler,
                                                         ReaderConfiguration configuration)
             throws IOException, OpenXML4JException, ParserConfigurationException, SAXException {
         try (InputStream inputStream = inputStreamSource.getInputStream();
              OPCPackage pkg = OPCPackage.open(inputStream)) {
             XSSFReader reader = new XSSFReader(pkg);
 
-            SheetContentsHandlerImpl<T, E> sheetContentsHandler = new SheetContentsHandlerImpl<>(contentsHandler, configuration);
+            SheetContentsHandlerImpl<R> sheetContentsHandler = new SheetContentsHandlerImpl<>(contentsHandler, configuration);
             XMLReader parser = fetchSheetParser(reader.getStylesTable(), reader.getSharedStringsTable(),
                     sheetContentsHandler);
 
@@ -69,18 +65,13 @@ public class XLSXReader {
     }
 
     @RequiredArgsConstructor
-    private static class SheetContentsHandlerImpl<T, E> implements SheetContentsHandler {
+    private static class SheetContentsHandlerImpl<R> implements SheetContentsHandler {
 
         private static final Pattern CELL_REFERENCE_PATTERN = Pattern.compile("[A-Z]+");
-        private final ContentHandler<E> contentsHandler;
+        private final ContentHandler<R> contentsHandler;
         private final ReaderConfiguration configuration;
 
         private int currentRowNum = -1;
-
-        @Getter
-        private final List<T> records = new LinkedList<>();
-        @Getter
-        private final List<E> errorRecords = new LinkedList<>();
 
         @Override
         public void startRow(int rowNum) {

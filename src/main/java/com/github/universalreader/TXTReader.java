@@ -1,7 +1,6 @@
 package com.github.universalreader;
 
 import com.github.universalreader.contenthandler.ContentHandler;
-import com.github.universalreader.readerresult.ReaderResult;
 import lombok.experimental.UtilityClass;
 
 import java.io.BufferedReader;
@@ -14,7 +13,7 @@ import static com.github.universalreader.util.ReaderUtil.readRecord;
 @UtilityClass
 public class TXTReader {
 
-    public static <E> ReaderResult<E> readRecords(FileSource fileSource, ContentHandler<E> contentsHandler,
+    public static <R> R readRecords(FileSource fileSource, ContentHandler<R> contentsHandler,
                                                   ReaderConfiguration configuration)
             throws IOException {
         try (InputStream inputStream = fileSource.getInputStream();
