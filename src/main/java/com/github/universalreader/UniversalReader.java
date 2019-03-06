@@ -18,7 +18,7 @@ public class UniversalReader {
             throws IOException, OpenXML4JException, SAXException, ParserConfigurationException {
         log.debug("Parsing file: " + fileSource.getFileName());
 
-        String fileExt = getFileExtension(fileSource.getFileName());
+        String fileExt = getFileExtension(fileSource.getFileName()).toLowerCase();
 
         log.debug("File extension  " + fileExt);
 
