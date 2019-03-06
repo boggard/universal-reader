@@ -19,7 +19,7 @@ compile('com.github.boggard:universal-reader:1.0.0')
 <dependency>
     <groupId>com.github.boggard</groupId>
     <artifactId>universal-reader</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
 </dependency>
 ````
 
