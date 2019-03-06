@@ -1,4 +1,4 @@
-package com.github.universalreader.util;
+package com.github.boggard.universalreader.util;
 
 import lombok.experimental.UtilityClass;
 import org.mozilla.universalchardet.UniversalDetector;

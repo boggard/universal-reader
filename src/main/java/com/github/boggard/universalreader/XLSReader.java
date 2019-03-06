@@ -1,13 +1,12 @@
-package com.github.universalreader;
+package com.github.boggard.universalreader;
 
-import com.github.universalreader.contenthandler.ContentHandler;
+import com.github.boggard.universalreader.contenthandler.ContentHandler;
+import com.github.boggard.universalreader.util.ReaderUtil;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import static com.github.universalreader.util.ReaderUtil.readRecord;
 
 @UtilityClass
 public class XLSReader {
@@ -41,7 +40,7 @@ public class XLSReader {
                             contentsHandler.startField(cell.getColumnIndex(), value);
                         });
 
-                        readRecord(contentsHandler);
+                        ReaderUtil.readRecord(contentsHandler);
                     }
                 }
             });

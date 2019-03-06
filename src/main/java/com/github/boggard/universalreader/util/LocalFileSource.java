@@ -1,6 +1,6 @@
-package com.github.universalreader.util;
+package com.github.boggard.universalreader.util;
 
-import com.github.universalreader.FileSource;
+import com.github.boggard.universalreader.FileSource;
 import lombok.RequiredArgsConstructor;
 
 import java.io.File;

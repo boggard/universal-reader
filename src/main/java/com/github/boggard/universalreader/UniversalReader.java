@@ -1,6 +1,6 @@
-package com.github.universalreader;
+package com.github.boggard.universalreader;
 
-import com.github.universalreader.contenthandler.ContentHandler;
+import com.github.boggard.universalreader.contenthandler.ContentHandler;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;

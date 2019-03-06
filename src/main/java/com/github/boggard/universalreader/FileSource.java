@@ -1,4 +1,4 @@
-package com.github.universalreader;
+package com.github.boggard.universalreader;
 
 import java.io.IOException;
 import java.io.InputStream;

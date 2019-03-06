@@ -1,6 +1,6 @@
-package com.github.universalreader.contenthandler;
+package com.github.boggard.universalreader.contenthandler;
 
-import com.github.universalreader.ReaderOriginalField;
+import com.github.boggard.universalreader.ReaderOriginalField;
 import lombok.experimental.UtilityClass;
 
 import java.util.function.Consumer;

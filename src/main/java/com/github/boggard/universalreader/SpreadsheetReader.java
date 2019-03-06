@@ -1,7 +1,7 @@
-package com.github.universalreader;
+package com.github.boggard.universalreader;
 
-import com.github.universalreader.contenthandler.ContentHandler;
-import com.github.universalreader.util.LocalFileSource;
+import com.github.boggard.universalreader.contenthandler.ContentHandler;
+import com.github.boggard.universalreader.util.LocalFileSource;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.openxml4j.exceptions.OLE2NotOfficeXmlFileException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;

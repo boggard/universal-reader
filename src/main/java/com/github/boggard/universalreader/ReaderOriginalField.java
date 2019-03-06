@@ -1,4 +1,4 @@
-package com.github.universalreader;
+package com.github.boggard.universalreader;
 
 import lombok.Getter;
 

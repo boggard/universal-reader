@@ -1,14 +1,12 @@
-package com.github.universalreader;
+package com.github.boggard.universalreader;
 
-import com.github.universalreader.contenthandler.ContentHandler;
+import com.github.boggard.universalreader.contenthandler.ContentHandler;
+import com.github.boggard.universalreader.util.ReaderUtil;
 import lombok.experimental.UtilityClass;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-
-import static com.github.universalreader.util.ReaderUtil.inputStreamToBufferedReader;
-import static com.github.universalreader.util.ReaderUtil.readRecord;
 
 @UtilityClass
 public class CSVReader {
@@ -17,12 +15,12 @@ public class CSVReader {
                                                   ReaderConfiguration configuration)
             throws IOException {
         try (InputStream inputStream = inputStreamSource.getInputStream();
-             BufferedReader reader = inputStreamToBufferedReader(inputStream)) {
+             BufferedReader reader = ReaderUtil.inputStreamToBufferedReader(inputStream)) {
 
             reader.lines().skip(configuration.getStartLineIndex()).forEach(line -> {
                 String[] lineRecords = line.split(configuration.getRecordsSeparator());
                 for (String lineRecord : lineRecords) {
-                    readRecord(lineRecord, contentsHandler, configuration.getFieldsSeparator());
+                    ReaderUtil.readRecord(lineRecord, contentsHandler, configuration.getFieldsSeparator());
                 }
             });
 

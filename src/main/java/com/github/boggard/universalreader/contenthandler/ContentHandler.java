@@ -1,4 +1,4 @@
-package com.github.universalreader.contenthandler;
+package com.github.boggard.universalreader.contenthandler;
 
 public interface ContentHandler<R> {
 

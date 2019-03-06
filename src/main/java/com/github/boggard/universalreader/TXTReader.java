@@ -1,14 +1,12 @@
-package com.github.universalreader;
+package com.github.boggard.universalreader;
 
-import com.github.universalreader.contenthandler.ContentHandler;
+import com.github.boggard.universalreader.contenthandler.ContentHandler;
+import com.github.boggard.universalreader.util.ReaderUtil;
 import lombok.experimental.UtilityClass;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-
-import static com.github.universalreader.util.ReaderUtil.inputStreamToBufferedReader;
-import static com.github.universalreader.util.ReaderUtil.readRecord;
 
 @UtilityClass
 public class TXTReader {
@@ -17,10 +15,10 @@ public class TXTReader {
                                                   ReaderConfiguration configuration)
             throws IOException {
         try (InputStream inputStream = fileSource.getInputStream();
-             BufferedReader reader = inputStreamToBufferedReader(inputStream)) {
+             BufferedReader reader = ReaderUtil.inputStreamToBufferedReader(inputStream)) {
 
             reader.lines().skip(configuration.getStartLineIndex())
-                    .forEach(line -> readRecord(line, contentsHandler, configuration.getFieldsSeparator()));
+                    .forEach(line -> ReaderUtil.readRecord(line, contentsHandler, configuration.getFieldsSeparator()));
 
             contentsHandler.endFile();
 

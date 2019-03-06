@@ -1,14 +1,12 @@
-package com.github.universalreader.util;
+package com.github.boggard.universalreader.util;
 
-import com.github.universalreader.contenthandler.ContentHandler;
+import com.github.boggard.universalreader.contenthandler.ContentHandler;
 import lombok.experimental.UtilityClass;
 import org.mozilla.universalchardet.UnicodeBOMInputStream;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-
-import static com.github.universalreader.util.CharsetUtil.detectCharset;
 
 @UtilityClass
 public class ReaderUtil {
@@ -34,7 +32,7 @@ public class ReaderUtil {
         BufferedInputStream fis = new BufferedInputStream(inputStream);
 
         fis.mark(fis.available() + 1);
-        String detectedEncoding = detectCharset(fis);
+        String detectedEncoding = CharsetUtil.detectCharset(fis);
         fis.reset();
 
         if (detectedEncoding != null) {

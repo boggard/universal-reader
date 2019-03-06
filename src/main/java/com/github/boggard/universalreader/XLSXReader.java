@@ -1,6 +1,7 @@
-package com.github.universalreader;
+package com.github.boggard.universalreader;
 
-import com.github.universalreader.contenthandler.ContentHandler;
+import com.github.boggard.universalreader.contenthandler.ContentHandler;
+import com.github.boggard.universalreader.util.ReaderUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.ooxml.util.SAXHelper;
@@ -22,8 +23,6 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.github.universalreader.util.ReaderUtil.readRecord;
 
 @UtilityClass
 public class XLSXReader {
@@ -87,7 +86,7 @@ public class XLSXReader {
         @Override
         public void endRow(int rowNum) {
             if (isContentShouldBeHandled()) {
-                readRecord(contentsHandler);
+                ReaderUtil.readRecord(contentsHandler);
             }
         }
 
