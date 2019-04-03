@@ -14,31 +14,34 @@ import java.io.IOException;
 public class UniversalReader {
 
     public static <R> R processRecords(FileSource fileSource, ContentHandler<R> contentsHandler,
-                                                         ReaderConfiguration configuration)
-            throws IOException, OpenXML4JException, SAXException, ParserConfigurationException {
-        log.debug("Parsing file: " + fileSource.getFileName());
+                                       ReaderConfiguration configuration) {
+        try {
+            log.debug("Parsing file: " + fileSource.getFileName());
 
-        String fileExt = getFileExtension(fileSource.getFileName()).toLowerCase();
+            String fileExt = getFileExtension(fileSource.getFileName()).toLowerCase();
 
-        log.debug("File extension  " + fileExt);
+            log.debug("File extension  " + fileExt);
 
-        R result;
-        switch (fileExt) {
-            case "txt":
-                result = TXTReader.readRecords(fileSource, contentsHandler, configuration);
-                break;
-            case "csv":
-                result = CSVReader.readRecords(fileSource, contentsHandler, configuration);
-                break;
-            case "xls":
-            case "xlsx":
-                result = SpreadsheetReader.readRecords(fileSource, contentsHandler, configuration);
-                break;
-            default:
-                throw new IllegalStateException("Incorrect file format");
+            R result;
+            switch (fileExt) {
+                case "txt":
+                    result = TXTReader.readRecords(fileSource, contentsHandler, configuration);
+                    break;
+                case "csv":
+                    result = CSVReader.readRecords(fileSource, contentsHandler, configuration);
+                    break;
+                case "xls":
+                case "xlsx":
+                    result = SpreadsheetReader.readRecords(fileSource, contentsHandler, configuration);
+                    break;
+                default:
+                    throw new IllegalStateException("Incorrect file format");
+            }
+
+            return result;
+        } catch (SAXException | IOException | ParserConfigurationException | OpenXML4JException ex) {
+            throw new IllegalStateException("An universal-reader error occurred", ex);
         }
-
-        return result;
     }
 
     private String getFileExtension(String fileName) {
