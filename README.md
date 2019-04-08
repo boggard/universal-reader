@@ -10,7 +10,7 @@ via one general interface.
 ### Gradle
 
 ````
-compile('com.github.boggard:universal-reader:1.0.0')
+compile('com.github.boggard:universal-reader:2.0.1')
 ````
 
 ### Maven
