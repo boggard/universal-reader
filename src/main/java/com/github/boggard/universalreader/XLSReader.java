@@ -5,20 +5,18 @@ import com.github.boggard.universalreader.util.ReaderUtil;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.ss.usermodel.*;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 @UtilityClass
 public class XLSReader {
 
     private static final DataFormatter DATA_FORMATTER = new DataFormatter();
 
-    public static <R> R readRecords(FileSource inputStreamSource, ContentHandler<R> contentsHandler,
-                                                        ReaderConfiguration configuration)
+    public static <R> R readRecords(File sourceFile, ContentHandler<R> contentsHandler,
+                                    ReaderConfiguration configuration)
             throws IOException {
-        try (InputStream inputStream = inputStreamSource.getInputStream();
-             Workbook workbook = WorkbookFactory.create(inputStream)) {
-
+        try (Workbook workbook = WorkbookFactory.create(sourceFile)) {
             workbook.sheetIterator().forEachRemaining(sheet -> {
                 for (int i = configuration.getStartLineIndex(); i < sheet.getLastRowNum() + 1; i++) {
                     Row row = sheet.getRow(i);

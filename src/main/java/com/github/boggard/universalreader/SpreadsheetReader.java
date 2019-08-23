@@ -1,7 +1,6 @@
 package com.github.boggard.universalreader;
 
 import com.github.boggard.universalreader.contenthandler.ContentHandler;
-import com.github.boggard.universalreader.util.LocalFileSource;
 import lombok.experimental.UtilityClass;
 import org.apache.poi.openxml4j.exceptions.OLE2NotOfficeXmlFileException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
@@ -23,14 +22,12 @@ public class SpreadsheetReader {
         File tempFile = File.createTempFile("spreadsheet-temp", null);
         writeToFile(fileSource, tempFile);
 
-        FileSource tempFileSource = new LocalFileSource(tempFile);
-
         R result;
 
         try {
-            result = XLSXReader.readRecords(tempFileSource, contentsHandler, configuration);
+            result = XLSXReader.readRecords(tempFile, contentsHandler, configuration);
         } catch (OLE2NotOfficeXmlFileException e) {
-            result = XLSReader.readRecords(tempFileSource, contentsHandler, configuration);
+            result = XLSReader.readRecords(tempFile, contentsHandler, configuration);
         }
 
         Files.delete(tempFile.toPath());

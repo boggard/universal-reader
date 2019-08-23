@@ -18,6 +18,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -27,11 +28,10 @@ import java.util.regex.Pattern;
 @UtilityClass
 public class XLSXReader {
 
-    public static <R> R readRecords(FileSource inputStreamSource, ContentHandler<R> contentsHandler,
-                                                        ReaderConfiguration configuration)
+    public static <R> R readRecords(File sourceFile, ContentHandler<R> contentsHandler,
+                                    ReaderConfiguration configuration)
             throws IOException, OpenXML4JException, ParserConfigurationException, SAXException {
-        try (InputStream inputStream = inputStreamSource.getInputStream();
-             OPCPackage pkg = OPCPackage.open(inputStream)) {
+        try (OPCPackage pkg = OPCPackage.open(sourceFile)) {
             XSSFReader reader = new XSSFReader(pkg);
 
             SheetContentsHandlerImpl<R> sheetContentsHandler = new SheetContentsHandlerImpl<>(contentsHandler, configuration);
