@@ -39,8 +39,9 @@ public class UniversalReader {
             }
 
             return result;
+
         } catch (SAXException | IOException | ParserConfigurationException | OpenXML4JException ex) {
-            throw new IllegalStateException("An universal-reader error occurred", ex);
+            throw new IllegalStateException("An error occurred with message: " + ex.getMessage(), ex);
         }
     }
 

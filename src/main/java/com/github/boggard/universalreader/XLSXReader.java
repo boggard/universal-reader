@@ -61,7 +61,7 @@ public class XLSXReader {
             parser.parse(sheetSource);
             sheet.close();
         } catch (SAXException | IOException ex) {
-            throw new IllegalStateException(ex);
+            throw new IllegalStateException("An error occurred with message: " + ex.getMessage(), ex);
         }
     }
 
