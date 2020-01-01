@@ -1,5 +1,10 @@
 # universal-reader
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=boggard_universal-reader&metric=alert_status)](https://sonarcloud.io/dashboard?id=boggard_universal-reader)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=boggard_universal-reader&metric=bugs)](https://sonarcloud.io/dashboard?id=boggard_universal-reader)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=boggard_universal-reader&metric=code_smells)](https://sonarcloud.io/dashboard?id=boggard_universal-reader)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=boggard_universal-reader&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=boggard_universal-reader)
+
 ## Description
 
 The library intended to read or process content from files with different formats (like csv, txt, xls, xlsx) 
