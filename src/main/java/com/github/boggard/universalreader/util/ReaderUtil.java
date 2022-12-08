@@ -1,6 +1,5 @@
 package com.github.boggard.universalreader.util;
 
-import com.github.boggard.universalreader.contenthandler.ContentHandler;
 import lombok.experimental.UtilityClass;
 import org.mozilla.universalchardet.UnicodeBOMInputStream;
 
@@ -10,21 +9,6 @@ import java.nio.charset.StandardCharsets;
 
 @UtilityClass
 public class ReaderUtil {
-
-    public static <T, E> void readRecord(String record, ContentHandler<E> contentsHandler, String recordsSeparator) {
-        contentsHandler.startRecord();
-
-        String[] fields = record.split(recordsSeparator);
-        for (int i = 0; i < fields.length; i++) {
-            contentsHandler.startField(i, fields[i]);
-        }
-
-        readRecord(contentsHandler);
-    }
-
-    public static <T, E> void readRecord(ContentHandler<E> contentsHandler) {
-        contentsHandler.endRecord();
-    }
 
     public static BufferedReader inputStreamToBufferedReader(InputStream inputStream)
             throws IOException {

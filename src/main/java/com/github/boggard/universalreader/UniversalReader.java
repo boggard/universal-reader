@@ -13,8 +13,8 @@ import java.io.IOException;
 @UtilityClass
 public class UniversalReader {
 
-    public static <R> R processRecords(FileSource fileSource, ContentHandler<R> contentsHandler,
-                                       ReaderConfiguration configuration) {
+    public static <R, T> R processRecords(FileSource fileSource, ContentHandler<R, T> contentsHandler,
+                                          ReaderConfiguration configuration) {
         try {
             log.debug("Parsing file: " + fileSource.getFileName());
 
