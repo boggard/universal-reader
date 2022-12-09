@@ -1,16 +1,14 @@
 package com.github.boggard.universalreader.contenthandler;
 
-public interface ContentHandler<R> {
+import java.util.stream.Stream;
 
-    void startRecord();
+public interface ContentHandler<R, T> {
 
-    void startField(int index, String field);
-
-    void endRecord();
+    RecordHandler<T> recordHandler();
 
     default void endFile() {
         //by default do nothing
     }
 
-    R getResult();
+    R getResult(Stream<T> resultStream);
 }

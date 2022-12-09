@@ -2,7 +2,6 @@ package com.github.boggard.universalreader;
 
 import com.github.boggard.universalreader.contenthandler.ContentHandler;
 import lombok.experimental.UtilityClass;
-import org.apache.poi.openxml4j.exceptions.OLE2NotOfficeXmlFileException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.util.IOUtils;
 import org.xml.sax.SAXException;
@@ -16,19 +15,13 @@ import java.nio.file.Files;
 @UtilityClass
 public class SpreadsheetReader {
 
-    public static <R> R readRecords(FileSource fileSource, ContentHandler<R> contentsHandler,
+    public static <R, T> R readRecords(FileSource fileSource, ContentHandler<R, T> contentsHandler,
                                                   ReaderConfiguration configuration)
             throws IOException, ParserConfigurationException, SAXException, OpenXML4JException {
         File tempFile = File.createTempFile("spreadsheet-temp", null);
         writeToFile(fileSource, tempFile);
 
-        R result;
-
-        try {
-            result = XLSXReader.readRecords(tempFile, contentsHandler, configuration);
-        } catch (OLE2NotOfficeXmlFileException e) {
-            result = XLSReader.readRecords(tempFile, contentsHandler, configuration);
-        }
+        R result = ExcelReader.readRecords(tempFile, contentsHandler, configuration);
 
         Files.delete(tempFile.toPath());
 
